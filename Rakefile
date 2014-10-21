@@ -1,14 +1,18 @@
 require 'rake/clean'
-CC = "clang++ -g -I/opt/local/include/opencv -I/opt/local/include -L/opt/local/lib -lopencv_core -lopencv_imgproc -lopencv_highgui -lopencv_ml -lm"
-SRCS = FileList["**/*.cc"]
-OBJS = SRCS.ext('dSYM')
 
-CLEAN.include(OBJS)
+CC = "clang++"
+OPT = "-g -Wall -I/opt/local/include/opencv -I/opt/local/include -L/opt/local/lib -lopencv_core -lopencv_imgproc -lopencv_highgui -lopencv_ml -lm"
+BINS = FileList["**/bin/*"]
 
-file "hello" do |t|
-  sh "#{CC} -o #{t.name} #{t.prerequisites.join(' ')}"
+CLEAN.include()
+CLOBBER.include(BINS)
+
+rule /.*/ do |t,args|
+  sh "#{CC} #{'src/'+t.name+'.cc'} -o #{t.name} #{OPT}"
+  sh "mv #{t.name} #{t.name+'.dSYM'} bin"
 end
 
+# 動かないので誰かなんとかして
 task :setAlias do
   sh "alias cv++='clang++ -g -I/opt/local/include/opencv -I/opt/local/include -L/opt/local/lib -lopencv_core -lopencv_imgproc -lopencv_highgui -lopencv_ml -lm'"
 end

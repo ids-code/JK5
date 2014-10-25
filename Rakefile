@@ -17,5 +17,6 @@ end
 
 # 動かないので誰かなんとかして
 task :setAlias do
-  sh "alias cv++='clang++ -g -I/opt/local/include/opencv -I/opt/local/include -L/opt/local/lib -lopencv_core -lopencv_imgproc -lopencv_highgui -lopencv_ml -lm'"
+  sh "bash -ci 'alias page=\'ls\''"
+  # sh "alias cv++=\'clang++ #{OPT}\'"
 end

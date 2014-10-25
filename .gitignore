@@ -1,1 +1,7 @@
 *.DSYM
+*.aux
+*.dvi
+*.log
+*.xbb
+*132021.pdf
+johokougaku5

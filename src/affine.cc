@@ -1,6 +1,6 @@
 #include <iostream> //OpenCVの基本機能(データ型)
 #include <opencv2/core/core.hpp>  //OpenCVで画像処理
-#include <opencv/imgproc/imgproc.hpp> //GUIのヘッダファイル
+#include <opencv2/imgproc/imgproc.hpp> //GUIのヘッダファイル
 #include <opencv2/highgui/highgui.hpp>
 using namespace cv;
 using namespace std;
@@ -21,7 +21,7 @@ Point2f original[3]; //変換前3点
 original[0] = Point2f(0,0);
 original[1] = Point2f(size.width, 0);
 original[2] = Point2f(0, size.height);
-point2f translate[3]; //変換後3点
+Point2f translate[3]; //変換後3点
 translate[0] = Point2f(100, 150);
 translate[1] = Point2f(500, 50);
 translate[2] = Point2f(50, 550);

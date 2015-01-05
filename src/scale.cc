@@ -1,6 +1,6 @@
 #include <iostream> //OpenCVの基本機能(データ型)
 #include <opencv2/core/core.hpp>  //OpenCVで画像処理
-#include <opencv/imgproc/imgproc.hpp> //GUIのヘッダファイル
+#include <opencv2/imgproc/imgproc.hpp> //GUIのヘッダファイル
 #include <opencv2/highgui/highgui.hpp>
 using namespace cv;
 using namespace std;
@@ -21,7 +21,7 @@ int main(int argc, char* argv[]){
 
 Size dsize(image.size().width*SCALE_X, image.size().height*SCALE_Y); //結果画像のサイズ
 Mat destinationImage; //結果画像
-resize(image, destinationImage, dsize, 0, 0, INTER_NREAREST); //最近隣補間
+resize(image, destinationImage, dsize, 0, 0, INTER_NEAREST); //最近隣補間
 
 const string windowSource = "Source"; //原画像ウィンドウ生成
 namedWindow(windowSource, CV_WINDOW_AUTOSIZE);

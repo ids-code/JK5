@@ -1,13 +1,13 @@
 #include <iostream> //OpenCVの基本機能(データ型)
 #include <opencv2/core/core.hpp>  //OpenCVで画像処理
-#include <opencv/imgproc/imgproc.hpp> //GUIのヘッダファイル
+#include <opencv2/imgproc/imgproc.hpp> //GUIのヘッダファイル
 #include <opencv2/highgui/highgui.hpp>
 
 using namespace cv;
 using namespace std;
 
 int main(int argc, char* argv[]) {
-if (argv < 4) { //コマンド引数の説明
+if (argc < 4) { //コマンド引数の説明
   cerr << "usage: alphamatte <fore> <back> <alpha>" << endl;
   return -1; //エラー終了
   }
@@ -53,11 +53,11 @@ if (!image.data) { //読み込みの成功確認
   namedWindow(window, CV_WINDOW_AUTOSIZE);
   imshow(window,image); //alphamatteの表示
   Mat alphaImage(image.size(), CV_32FC3); //float型画像
-  image.convertTo(alphaImage, CV_32F, 1.0/255.0, 0.0)); //alphamatteの変換(正規化)
+  image.convertTo(alphaImage, CV_32F, 1.0/255.0, 0.0); //alphamatteの変換(正規化)
   Mat onesImage(foreImage.size(), CV_32FC3, Scalar(1.0,1.0,1.0));
   //全チャネル1の画像
   foreImage = foreImage.mul(alphaImage); //前景の抽出
-  backImahe = backImage.muk(onesImage-alphaImage); //前景の抽出
+  backImage = backImage.mul(onesImage-alphaImage); //前景の抽出
   
   Mat resultImage = foreImage + backImage; //結果画像(前景と背景)
   resultImage.convertTo(image, CV_8U); //結果画像の変換

@@ -1,6 +1,6 @@
 #include <iostream> //OpenCVの基本機能(データ型)
 #include <opencv2/core/core.hpp>  //OpenCVで画像処理
-#include <opencv/imgproc/imgproc.hpp> //GUIのヘッダファイル
+#include <opencv2/imgproc/imgproc.hpp> //GUIのヘッダファイル
 #include <opencv2/highgui/highgui.hpp>
 using namespace cv;
 using namespace std;
@@ -16,7 +16,7 @@ const string windowName = "Result"; //ウィンドウ名
 void onChange(int value, void* data); //コールバック関数
 
 int main(int argc, char* argv[]) {
-  if (argv < 3) { //コマンド引数の説明
+  if (argc < 3) { //コマンド引数の説明
     cerr << "usage: dissolve <file1><file2>" << endl;
 	return -1; //エラー終了
 	}
@@ -30,7 +30,7 @@ int main(int argc, char* argv[]) {
 	   cerr << "no such file: "<< argv[2] << endl;
 	   return -1; //エラー終了
 	   }
-	 if ( (image.rows != image2.rows) ||
+	 if ( (image1.rows != image2.rows) ||
 	   (image1.cols != image2.cols) ) { //2画像の大きさ比較
 	   cerr << "image sizes are incompatible";
 	   return -1; //エラー終了
@@ -38,8 +38,9 @@ int main(int argc, char* argv[]) {
 	  
 	  namedWindow(windowName, CV_WINDOW_AUTOSIZE); //結果画像ウィンドウ生成
 	  const string trackBarName ="Alpha"; //トラックバーの名前
-	  createTrackbar(trackbarName, windowName, &value, MAX_VALUE,
-	    onChange(value,NULL); //トラックバーの生成
+	  createTrackbar(trackBarName, windowName, &value, MAX_VALUE,
+	                 onChange,NULL); //トラックバーの生成
+	  onChange(value, NULL);
 	  waitKey(0); //キー入力待ち(無限)
 	  image1.release(); //画像1の解放
 	  image2.release(); //画像2の解放
@@ -47,7 +48,7 @@ int main(int argc, char* argv[]) {
 	  }
 	  
 	  void onChange(int value, void* data) { //コールバック関数
-	    double alpha = (double) value / MAX_VALUE; alpha値の計算
+	    double alpha = (double) value / MAX_VALUE; //alpha値の計算
 		Mat resultImage = image1*(1.0-alpha) + image2*(alpha); //結果画像
 		
 		imshow(windowName, resultImage); //結果画像の表示

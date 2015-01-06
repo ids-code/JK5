@@ -32,7 +32,7 @@ warpAffine(image, destinationImage, matrix, size, INTER_CUBIC); //アフィン�
 
 const string windowSource = "Source"; //原画像ウィンドウ生成
 namedWindow(windowSource, CV_WINDOW_AUTOSIZE);
-imshow(windowSource, CV_WINDOW_AUTOSIZE); //原画像の表示
+imshow(windowSource, destinationImage); //原画像の表示
 const string windowDestination = "Destination"; //原画像ウィンドウ生成
 namedWindow(windowDestination, CV_WINDOW_AUTOSIZE);
 imshow(windowDestination, destinationImage); //結果画像の表示
